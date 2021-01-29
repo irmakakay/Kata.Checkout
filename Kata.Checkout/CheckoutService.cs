@@ -21,9 +21,7 @@
             _shoppingCart.AddToBucket(item);
         }
 
-        public decimal Checkout()
-        {
-            return _shoppingCart.Checkout();
-        }
+        public decimal Checkout() => _shoppingCart.Checkout();
+        
     }
 }

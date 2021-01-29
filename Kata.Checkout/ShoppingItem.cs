@@ -10,8 +10,13 @@
 
         public PromotionDefinition Promotion { get; }
 
-        public ShoppingItem(string productCode, decimal unitPrice, PromotionDefinition promotion)
+        public ShoppingItem(string productCode, decimal unitPrice, PromotionDefinition promotion = null)
         {
+            if (string.IsNullOrWhiteSpace(productCode))
+            {
+                throw new ArgumentNullException(nameof(productCode));
+            }
+
             ProductCode = productCode;
             UnitPrice = unitPrice;
             Promotion = promotion;
@@ -25,19 +30,18 @@
                 return true;
             if (obj.GetType() != this.GetType())
                 return false;
-            return Equals((ShoppingItem) obj);
+            return Equals(obj as ShoppingItem);
         }
 
         public bool Equals(ShoppingItem other)
         {
-            if (other == null) return false;
+            if (other == null)
+                return false;
 
             return ProductCode == other.ProductCode;
         }
 
-        public override int GetHashCode()
-        {
-            return (ProductCode != null ? ProductCode.GetHashCode() : 0);
-        }
+        public override int GetHashCode() =>
+            (ProductCode != null ? ProductCode.GetHashCode() : 0);
     }
 }

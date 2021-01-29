@@ -1,6 +1,7 @@
 ﻿namespace Kata.Checkout
 {
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
 
     public class ShoppingCart : IShoppingCart
     {
@@ -11,6 +12,8 @@
         {
             _promotionService = promotionService;
         }
+
+        public IReadOnlyDictionary<ShoppingItem, int> Items => new ReadOnlyDictionary<ShoppingItem, int>(_items);
 
         public void AddToBucket(ShoppingItem item)
         {

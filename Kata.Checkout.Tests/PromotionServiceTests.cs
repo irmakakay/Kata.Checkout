@@ -5,15 +5,26 @@ namespace Kata.Checkout.Tests
     [TestFixture]
     public class PromotionServiceTests
     {
-        [SetUp]
-        public void Setup()
+        private PromotionService _sut = new PromotionService();
+
+        [Test]
+        public void ShouldApplyReturnCalculatedPrice()
         {
+            var item = new ShoppingItem("Bananas", 0.7m, new PromotionDefinition(2, 1m));
+
+            var price = _sut.Apply(item, 5);
+
+            Assert.AreEqual(2.7m, price);
         }
 
         [Test]
-        public void Test1()
+        public void ShouldApplyReturnUnitPrice()
         {
-            Assert.Pass();
+            var item = new ShoppingItem("Bananas", 0.7m, new PromotionDefinition(2, 1m));
+
+            var price = _sut.Apply(item, 1);
+
+            Assert.AreEqual(0.7m, price);
         }
     }
 }
